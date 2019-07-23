@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: ui
   labels: 
-    app: api
+    app: ui
 spec:
   selector:
     matchLabels:
-      app: api
+      app: ui
   template:
     metadata:
       labels:
-        app: api
+        app: ui
     spec:
       containers:
-      - name: api
-        image: api:latest
+      - name: ui
+        image: ui:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
