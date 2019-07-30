@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.3"
 
 volumes:
         jenkins-home:
@@ -36,4 +36,4 @@ services:
                           source: /var/run/docker.sock
                           target: /var/run/docker.sock
                 environment:
-- JENKINS_OPTS="--prefix=/jenkins"
+                        - JENKINS_OPTS="--prefix=/jenkins"
