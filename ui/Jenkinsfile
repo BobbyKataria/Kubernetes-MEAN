@@ -1,5 +1,4 @@
 pipeline {
-  agent any
   environment {
     registry = "teamyellow"
     registryCredential = "dockerhub"
@@ -12,19 +11,18 @@ pipeline {
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
   
-  stage('Build') {
-    stage('Clone repository') {
+stage('Clone repository') {
         checkout scm
   }
-    stage('Build Image') {
+stage('Build Image') {
         app = docker.build("frontend")
   }
-    stage('Test Image') {
+stage('Test Image') {
         app.inside {
             sh 'echo "Tests passed"'
         }
     }
-    stage('Push Image') {
+stage('Push Image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
@@ -34,13 +32,10 @@ pipeline {
             container.push('latest')
         }
     }
-    }
-    stage('Deploy') {
-        stage('Deploy Image') {
+stage('Deploy Image') {
             sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
-        stage('Removing images') {
+stage('Removing images') {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
-    }
-   }
+}
