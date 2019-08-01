@@ -13,17 +13,17 @@ pipeline {
   }
 stages{  
 stage('Clone repository') {
-  step {
+  steps {
         checkout scm
   }
 }
 stage('Build Image') {
-    step {
+    steps {
         app = docker.build("frontend")
   }
 }
 stage('Test Image') {
-  step{
+  steps{
   script {
         app.inside {
             sh 'echo "Tests passed"'
@@ -32,7 +32,7 @@ stage('Test Image') {
     }
   }
 stage('Push Image') {
-  step {
+  steps {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
@@ -44,12 +44,12 @@ stage('Push Image') {
     }
 }
 stage('Deploy Image') {
-  step {
+  steps {
             sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
 }
 stage('Removing images') {
-  step {
+  steps {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
     }
