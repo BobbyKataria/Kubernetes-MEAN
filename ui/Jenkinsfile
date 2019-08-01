@@ -19,8 +19,10 @@ stage('Clone repository') {
 }
 stage('Build Image') {
     steps {
+        step{
         app = docker.build("frontend")
   }
+}
 }
 stage('Test Image') {
   steps{
