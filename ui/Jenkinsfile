@@ -40,7 +40,7 @@ stage('Clone repository') {
           /*docker.withRegistry('', 'docker-hub-credentials') {
             app.push("latest")
         }*/
-          docker.withRegistry('http://35.246.111.87:8082/repository/docker-repo/', 'nexus-credentials') {
+          docker.withRegistry('http://35.246.111.87:8081/repository/docker-repo/', 'nexus-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push('latest')
         }
