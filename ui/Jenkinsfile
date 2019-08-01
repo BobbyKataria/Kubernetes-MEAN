@@ -4,8 +4,6 @@ pipeline {
     customImage = "docker.build("frontend", "./ui")"
     registry = "teamyellow"
     registryCredential = "dockerhub"
-    REPO = "teamyellow"
-    PRIVATE_REPO = "${PRIVATE_REGISTRY}/${REPO}"
     NEXUS_VERSION = "nexus3"
     NEXUS_PROTOCOL = "http"
     NEXUS_URL = "35.246.111.87:8081"
