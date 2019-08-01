@@ -33,7 +33,7 @@ stage('Build Image') {
   }
 }
 stage('Push Image') {
-    def app = docker.build("frontend", "./ui")
+    def app = null
   steps {
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
