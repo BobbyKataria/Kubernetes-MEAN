@@ -10,6 +10,7 @@ pipeline {
     NEXUS_URL = "35.246.111.87:8081"
     NEXUS_REPOSITORY = "docker-repo"
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
+    IMAGE = "docker.build("frontend", "./ui")"
   }
 stages{  
 stage('Clone repository') {
@@ -36,11 +37,11 @@ stage('Push Image') {
   steps {
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("latest")
+            IMAGE.push("latest")
         }
         docker.withRegistry('NEXUS_URL', 'nexus-credentials-id') {
-            container.push("${env.BUILD_NUMBER}")
-            container.push('latest')
+            IMAGE.push("${env.BUILD_NUMBER}")
+            IMAGE.push('latest')
         }
     }
 }
