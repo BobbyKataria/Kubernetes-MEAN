@@ -26,13 +26,13 @@ stage('Clone repository') {
         }
     }
 stage('Build Image') {
+        def app = null
     steps {
         script {
            app = docker.build("frontend", "./ui")
         }
   }
 }
-    def app = null
 stage('Push Image') {
   steps {
       script {
