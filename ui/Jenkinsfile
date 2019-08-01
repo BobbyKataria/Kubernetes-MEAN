@@ -18,8 +18,12 @@ stage('Clone repository') {
   }
 }
     stage('Docker permissions') {
-        sh 'whoami'
-        sh 'sudo usermod -aG docker jenkins'
+        steps {
+            script {
+            sh 'whoami'
+            sh 'sudo usermod -aG docker jenkins'
+            }
+        }
     }
 stage('Build Image') {
     steps {
