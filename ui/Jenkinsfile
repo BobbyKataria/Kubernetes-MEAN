@@ -12,6 +12,7 @@ pipeline {
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
 stages{  
+        def app = null
 stage('Clone repository') {
   steps {
         checkout scm
@@ -26,7 +27,6 @@ stage('Clone repository') {
         }
     }
 stage('Build Image') {
-        def app = null
     steps {
         script {
            app = docker.build("frontend", "./ui")
