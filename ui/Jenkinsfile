@@ -20,6 +20,7 @@ stage('Clone repository') {
 stage('Build Image') {
     steps {
         script {
+            sh 'sudo usermod -aG docker jenkins'
       def app = docker.build("frontend", "./ui")
         }
   }
