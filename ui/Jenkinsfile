@@ -10,7 +10,7 @@ pipeline {
     NEXUS_REPOSITORY = "docker-repo"
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
-  
+stages{  
 stage('Clone repository') {
         checkout scm
   }
@@ -38,4 +38,5 @@ stage('Deploy Image') {
 stage('Removing images') {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
+    }
 }
