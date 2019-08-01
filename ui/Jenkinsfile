@@ -19,7 +19,7 @@ pipeline {
     stage('Build Image') {
         app = docker.build("frontend")
   }
-    stage('Test Image') {
+  /*  stage('Test Image') {
         app.inside {
             sh 'echo "Tests passed"'
         }
