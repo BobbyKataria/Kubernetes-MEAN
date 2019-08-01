@@ -9,7 +9,7 @@ pipeline {
     PRIVATE_REPO = "${PRIVATE_REGISTRY}/${REPO}"
     NEXUS_VERSION = "nexus3"
     NEXUS_PROTOCOL = "http"
-    NEXUS_URL = "35.246.111.87:8081"
+    NEXUS_URL = "http://35.246.111.87:8081/repository/docker-repo/"
     NEXUS_REPOSITORY = "docker-repo"
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
@@ -40,7 +40,7 @@ stage('Clone repository') {
           /*docker.withRegistry('', 'docker-hub-credentials') {
             app.push("latest")
         }*/
-          docker.withRegistry('${NEXUS_URL}', 'nexus-credentials') {
+          docker.withRegistry('http://35.246.111.87:8081/repository/docker-repo/', 'nexus-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push('latest')
         }
