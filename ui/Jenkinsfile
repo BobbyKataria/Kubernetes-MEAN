@@ -18,11 +18,16 @@ stage('Build Image') {
         app = docker.build("frontend")
   }
 stage('Test Image') {
+  steps{
+  script {
         app.inside {
             sh 'echo "Tests passed"'
         }
+      }
     }
+  }
 stage('Push Image') {
+  scripts {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
@@ -32,11 +37,16 @@ stage('Push Image') {
             container.push('latest')
         }
     }
+}
 stage('Deploy Image') {
+  scripts {
             sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
+}
 stage('Removing images') {
+  scripts {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
     }
+}
 }
