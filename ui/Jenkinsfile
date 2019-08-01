@@ -12,7 +12,6 @@ pipeline {
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
 stages{  
-    def app = null
 stage('Clone repository') {
   steps {
         checkout scm
@@ -33,6 +32,7 @@ stage('Build Image') {
         }
   }
 }
+    def app = null
 stage('Push Image') {
   steps {
       script {
