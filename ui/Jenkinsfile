@@ -32,15 +32,6 @@ stage('Build Image') {
         }
   }
 }
-stage('Test Image') {
-  steps{
-  script {
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-      }
-    }
-  }
 stage('Push Image') {
   steps {
       script {
