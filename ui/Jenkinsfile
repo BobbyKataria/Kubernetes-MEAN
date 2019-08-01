@@ -37,7 +37,7 @@ pipeline {
     }
     stage('Deploy') {
         stage('Deploy Image') {
-            sh 'docker run -d -p 80:80 'registry/ui:latest"${env.BUILD_NUMBER}"'
+            sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
         stage('')
         stage('Removing images) {
