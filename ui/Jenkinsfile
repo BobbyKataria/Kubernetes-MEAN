@@ -26,7 +26,9 @@ stage('Clone repository') {
     }
 stage('Build Image') {
     steps {
-        script { docker.build("frontend","./ui") }
+        script { 
+            docker.build("frontend", "./ui") 
+        }
     }
 }
 stage('Push Image') {
