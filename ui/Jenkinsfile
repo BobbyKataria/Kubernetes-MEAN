@@ -21,7 +21,6 @@ stage('Clone repository') {
         steps {
             script {
             sh 'whoami'
-            sh 'sudo groupadd docker'
             sh 'sudo usermod -aG docker jenkins'
             }
         }
