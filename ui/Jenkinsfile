@@ -21,6 +21,7 @@ stage('Clone repository') {
         steps {
             script {
             sh 'whoami'
+            sh 'sudo groupadd docker'
             sh 'sudo usermod -aG docker jenkins'
             }
         }
@@ -28,7 +29,7 @@ stage('Clone repository') {
 stage('Build Image') {
     steps {
         script {
-      def app = docker.build("frontend", "./ui")
+      def app = "sudo" + docker.build("frontend", "./ui")
         }
   }
 }
