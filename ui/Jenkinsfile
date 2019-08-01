@@ -37,9 +37,9 @@ stage('Clone repository') {
  stage('Push Image') {
   steps {
       script {
-          docker.withRegistry('', 'docker-hub-credentials') {
+          /*docker.withRegistry('', 'docker-hub-credentials') {
             app.push("latest")
-        }
+        }*/
         docker.withRegistry('NEXUS_URL', 'nexus-credentials-id') {
             app.push("${env.BUILD_NUMBER}")
             app.push('latest')
