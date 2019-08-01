@@ -1,9 +1,10 @@
 pipeline {
     agent any
   environment {
-    customImage = "docker.build("frontend", "./ui")"
     registry = "teamyellow"
     registryCredential = "dockerhub"
+    REPO = "teamyellow"
+    PRIVATE_REPO = "${PRIVATE_REGISTRY}/${REPO}"
     NEXUS_VERSION = "nexus3"
     NEXUS_PROTOCOL = "http"
     NEXUS_URL = "35.246.111.87:8081"
@@ -26,32 +27,32 @@ stage('Clone repository') {
     }
 stage('Build Image') {
     steps {
-        script { 
-            docker.build("frontend", "./ui") 
+        script {
+           def app = docker.build("frontend", "./ui")
         }
-    }
+  }
 }
 stage('Push Image') {
   steps {
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            customImage.push("latest")
+            app.push("latest")
         }
         docker.withRegistry('NEXUS_URL', 'nexus-credentials-id') {
-            customImage.push("${env.BUILD_NUMBER}")
-            customImage.push('latest')
+            container.push("${env.BUILD_NUMBER}")
+            container.push('latest')
         }
     }
 }
 }
 stage('Deploy Image') {
   steps {
-            sh 'docker run -d -p 80:80 registry/frontend:latest'
+            sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
 }
 stage('Removing images') {
   steps {
-            sh 'docker rmi registry/frontend:latest'
+            sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
     }
 }
