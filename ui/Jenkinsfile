@@ -44,4 +44,5 @@ pipeline {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
     }
+   }
 */
