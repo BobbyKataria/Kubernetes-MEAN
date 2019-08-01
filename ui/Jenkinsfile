@@ -12,6 +12,7 @@ pipeline {
     NEXUS_CREDENTIAL_ID = "nexus-credentials"
   }
 stages{  
+    def app = null
 stage('Clone repository') {
   steps {
         checkout scm
@@ -34,7 +35,6 @@ stage('Build Image') {
 }
 stage('Push Image') {
   steps {
-      def app = null
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("latest")
