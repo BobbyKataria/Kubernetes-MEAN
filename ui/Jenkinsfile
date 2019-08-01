@@ -28,7 +28,7 @@ stage('Clone repository') {
 stage('Build Image') {
     steps {
         script {
-            def app = 'sudo + "${docker.build("frontend", "./ui")}'
+            def app = docker.build("frontend", "./ui", "sudo")
         }
   }
 }
