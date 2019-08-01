@@ -1,4 +1,5 @@
 pipeline {
+    agent any
   environment {
     registry = "teamyellow"
     registryCredential = "dockerhub"
@@ -12,13 +13,17 @@ pipeline {
   }
 stages{  
 stage('Clone repository') {
+  step {
         checkout scm
   }
+}
 stage('Build Image') {
+    step {
         app = docker.build("frontend")
   }
+}
 stage('Test Image') {
-  steps{
+  step{
   script {
         app.inside {
             sh 'echo "Tests passed"'
@@ -27,7 +32,7 @@ stage('Test Image') {
     }
   }
 stage('Push Image') {
-  scripts {
+  step {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
@@ -39,12 +44,12 @@ stage('Push Image') {
     }
 }
 stage('Deploy Image') {
-  scripts {
+  step {
             sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
         }
 }
 stage('Removing images') {
-  scripts {
+  step {
             sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
         }
     }
