@@ -27,7 +27,7 @@ stage('Clone repository') {
 stage('Build Image') {
     steps {
         script {
-                 def customImage = docker.build("frontend", "./ui")
+                 docker.build("frontend", "./ui")
         }
   }
 }
