@@ -21,7 +21,7 @@ stage('Build Image') {
     steps {
         script {
             sh 'sudo usermod -aG docker jenkins'
-      def app = docker.build("frontend", "./ui")
+      def app = docker.build("frontend", "./ui", "-v /var/run/docker.sock:/var/run/docker.sock")
         }
   }
 }
