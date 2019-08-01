@@ -1,6 +1,7 @@
 pipeline {
     agent any
   environment {
+    customImage = "docker.build("frontend", "./ui")"
     registry = "teamyellow"
     registryCredential = "dockerhub"
     REPO = "teamyellow"
@@ -33,15 +34,14 @@ stage('Build Image') {
   }
 }
 stage('Push Image') {
-    def customImage = "frontend:latest"
   steps {
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             customImage.push("latest")
         }
         docker.withRegistry('NEXUS_URL', 'nexus-credentials-id') {
-            container.push("${env.BUILD_NUMBER}")
-            container.push('latest')
+            customImage.push("${env.BUILD_NUMBER}")
+            customImage.push('latest')
         }
     }
 }
