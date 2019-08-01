@@ -33,6 +33,7 @@ stage('Build Image') {
   }
 }
 stage('Push Image') {
+    def customImage = "frontend:latest"
   steps {
       script {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
