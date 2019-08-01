@@ -29,7 +29,7 @@ stage('Clone repository') {
 stage('Build Image') {
     steps {
         script {
-           def app = docker.build("frontend", "./ui")
+           app = docker.build("frontend", "./ui")
         }
   }
 }
