@@ -27,13 +27,13 @@ stage('Clone repository') {
             }
         }
     }
-/*stage('Build Image') {
+stage('Build Image') {
     steps {
         script {
            app = docker.build("frontend", "./ui")
         }
   }
-}*/
+}
 stage('Push Image') {
   steps {
       script {
