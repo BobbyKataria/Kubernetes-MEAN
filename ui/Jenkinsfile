@@ -27,17 +27,17 @@ stage('Clone repository') {
             }
         }
     }
-stage('Build Image') {
+/*stage('Build Image') {
     steps {
         script {
            app = docker.build("frontend", "./ui")
         }
   }
-}
+}*/
 stage('Push Image') {
   steps {
       script {
-          docker.withRegistry('instance-2:5000') {
+          docker.withRegistry('https://instance-2:5000') {
             app.push("latest")
         }
           /*docker.withRegistry('instance-2:8081', 'nexus-credentials') {
