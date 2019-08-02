@@ -27,23 +27,23 @@ stage('Clone repository') {
             }
         }
     }
-/*stage('Build Image') {
+stage('Build Image') {
     steps {
         script {
            app = docker.build("frontend", "./ui")
         }
   }
-}*/
- stage('Push Image') {
+}
+stage('Push Image') {
   steps {
       script {
-          /*docker.withRegistry('', 'docker-hub-credentials') {
+          docker.withRegistry('instance-2:5000') {
             app.push("latest")
-        }*/
-          docker.withRegistry('instance-2:8081', 'nexus-credentials') {
+        }
+          /*docker.withRegistry('instance-2:8081', 'nexus-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push('latest')
-        }
+        }*/
     }
 }
 }
