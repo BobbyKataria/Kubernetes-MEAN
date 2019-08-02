@@ -49,12 +49,12 @@ stage('Push Image') {
 }
 stage('Deploy Image') {
   steps {
-            sh 'docker run -d -p 80:80 "registry/ui:latest"${env.BUILD_NUMBER}"'
+            sh 'docker-compose up -d'
         }
 }
 stage('Removing images') {
   steps {
-            sh "docker rmi $registry/frontend:latest$BUILD_NUMBER"
+            sh "docker rmi frontend:latest instance-2:5000/frontend"
         }
     }
 }
