@@ -37,7 +37,7 @@ stage('Build Image') {
 stage('Push Image') {
   steps {
       script {
-          docker.withRegistry('https://instance-2:5000') {
+          docker.withRegistry('http://instance-2:5000') {
             app.push("latest")
         }
           /*docker.withRegistry('instance-2:8081', 'nexus-credentials') {
